@@ -3,6 +3,10 @@ let contador = 0
 let acierto = false
 let intento = ""
 
+/*Esta variable la uso para salir del loop*/
+let salgo = true
+
+
 let nombre = prompt("Ingresa tu nombre: ")
 alert("OK " + nombre + ", iremos por una adivinanza. Tendrás solo 3 intentos.")
 
@@ -10,11 +14,11 @@ alert("OK " + nombre + ", iremos por una adivinanza. Tendrás solo 3 intentos.")
 do{
     intento = prompt("Si me arrancas la piel no lloraré, ¡pero tú sí!, ¿Quién soy?")    
 
-    if (intento.toUpperCase() === "AJO"){ 
+    if (intento.toUpperCase() === respuesta){ 
         acierto = true
+        salgo = false
     }else{
         contador = contador + 1
-        
         /*Registro los intentos*/
         console.log("Intento: "+ contador)
     }
@@ -29,15 +33,18 @@ do{
             console.log("...casi casi!")
             break
         }
-        default : 
+        case 3:{
+            console.log("Suerte en la proxima")
+            salgo = false
             break
+        }
     }    
-       
-}while (acierto || contador != 3 )
+
+}while (salgo)
 
 
-if (acierto == true)
+if (acierto)
         alert("Lo has hecho muy bien!")
-   else {
+   else if (acierto == false)
         alert("Intenta de nuevo recargando la pagina! Buena suerte la proxima!")
-    }
+    
