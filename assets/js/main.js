@@ -1,47 +1,43 @@
+const respuesta = "AJO"
+let contador = 0
+let acierto = false
+let intento = ""
+
 let nombre = prompt("Ingresa tu nombre: ")
-alert("Iremos por una adivinanza: <br>")
+alert("OK " + nombre + ", iremos por una adivinanza. Tendrás solo 3 intentos.")
+
 
 do{
-    nro1 = prompt("Ingresa el número inicial (o ESC para salir): ")    
-    if (isNaN(nro1)){ 
-        alert("No por favor, ingresa un número correcto.")
-        location.reload();
+    intento = prompt("Si me arrancas la piel no lloraré, ¡pero tú sí!, ¿Quién soy?")    
+
+    if (intento.toUpperCase() === "AJO"){ 
+        acierto = true
+    }else{
+        contador = contador + 1
+        
+        /*Registro los intentos*/
+        console.log("Intento: "+ contador)
     }
-    nro2 = prompt("Ingresa el número final (o ESC para salir): ")    
-    if (isNaN(nro2) && (nro2 > nro1)){ 
-        alert("El segundo ingreso debe ser numerico y mayor que el primer nro")
-        location.reload();
-    }
-    if (nro1 >= nro2){
-        alert("El primer numero no puede ser mayor o igual que el segundo")
-       }else if (nro1 < nro2){
-           for (let i = nro1; i <= nro2; i++){
-               console.log(i)
-           }
-       }
+    
+    /*Aqui devuelvo mensajes segun el contador...*/
+    switch (contador){
+        case 1: {
+            console.log("Aqui una pista... no es la cebolla.")    
+            break
+        }
+        case 2:{
+            console.log("...casi casi!")
+            break
+        }
+        default : 
+            break
+    }    
        
-}while ((nro1.toUpperCase() == "ESC") || (nro2.toUpperCase() == "ESC"))
-
-/*
--Tiene dientes y no come, tiene cabeza y no es hombre. (Ajo)
+}while (acierto || contador != 3 )
 
 
-
-
-alert("Hola... aquí podes sacar tu entrada.")
-let nombre = prompt("Escribe tu nombre para empezar: ")
-let pelicula = prompt("Ahora, escribe la pelicula que quieres ver")
-let edad = prompt("Edad?")
-let compas = prompt("Por ultimo, la cantidad de compañeros")
-
-
-
-*/
-
-if (nro1 >= nro2){
- alert("El primer numero no puede ser mayor o igual que el segundo")
-}else if (nro1 < nro2){
-    for (let i = nro1; i <= nro2; i++){
-        console.log(i)
+if (acierto == true)
+        alert("Lo has hecho muy bien!")
+   else {
+        alert("Intenta de nuevo recargando la pagina! Buena suerte la proxima!")
     }
-}
