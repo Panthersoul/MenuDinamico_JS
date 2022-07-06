@@ -1,54 +1,62 @@
-const respuesta = "AJO"
-let contador = 0
-let acierto = false
-let intento = ""
-let respuestas = []
-/*Esta variable la uso para salir del loop*/
-let salgo = true
 
+class producto {
+    constructor (categoria, nombre, precio){
+        this.categoria = categoria;
+        this.nombre = nombre;
+        this.precio = precio;
+    }
+
+}
+
+class categoria {
+    constructor (nombre, numero){
+        this.nombre = nombre;
+        this.numero = numero;
+    }
+}
+
+let listaCategoria = [];
+let listaProductos = [];
 
 let nombre = prompt("Ingresa tu nombre: ")
-alert("OK " + nombre + ", iremos por una adivinanza. Tendrás solo 3 intentos.")
+alert(`Hola ${nombre}, con este simulador crearemos un menú de restaurant.`)
+alert("Escribe las categorias de tu menú, como PASTA, CARNES, ETC.")
+let nroCat = 1;
 
-
-do{
-    intento = prompt("Si me arrancas la piel no lloraré, ¡pero tú sí!, ¿Quién soy?")    
+do {
     
-    respuestas.push(intento)
-
-    if (intento.toUpperCase() === respuesta){ 
-        acierto = true
-        salgo = false
-    }else{
-        contador = contador + 1
-        /*Registro los intentos*/
-        console.log("Intento: "+ contador)
+    let nombreCat = prompt("Ingresa una categoría: ");    
+    if (nombreCat != nombreCat.toUpperCase("ESC")) 
+    {
+        unaCategoria = new categoria(nombreCat, nroCat);
+        listaCategoria.push(unaCategoria);
+        console.log(listaCategoria);
+        nroCat++;
     }
-    
-    /*Aqui devuelvo mensajes segun el contador...*/
-    switch (contador){
-        case 1: {
-            console.log("Aqui una pista... no es la cebolla.")    
-            break
-        }
-        case 2:{
-            console.log("...casi casi!")
-            break
-        }
-        case 3:{
-            console.log("Suerte en la proxima")
-            salgo = false
-            break
-        }
-    }    
+}while(confirm(`¿Desea seguir agregando categorías?`))
 
-}while (salgo)
+alert(`Ok... ahora, agregaremos platos con su precio a cada categoría.`);
 
+for (let cat in listaCategoria)
+{
+    console.log(cat);
+    console.log(cat.name);
+    for (let i = 0; i < cat.length; i++)
+        console.log(cat.nombre);
+}
+/*
+do {
+    for (cat in listaCategoria){
+        alert(`Ahora agregaremos productos a la categoría: ${cat.nombre}`)
+        do {
+            let nombreProd = prompt("Nombre del plato:");
+            let precio = prompt("Precio");
+            let unProducto = new producto(cat.numero, nombreProd, precio);
+            listaProductos.push(unProducto);
+        }while(confirm(`¿Desea agregar otro producto a esta categoría?`))
 
-if (acierto)
-        alert("Lo has hecho muy bien!")
-   else if (acierto == false)
-    for (let i = 0; i < respuestas.length; i++){
-        console.log("Respuesta "+[i + 1]+" : "+respuestas[i])    
     }
-    alert("Intenta de nuevo recargando la pagina! Buena suerte la proxima!")
+}while(confirm(`Desea salir?`))
+
+console.log(listaProductos);
+*/
