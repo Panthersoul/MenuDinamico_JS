@@ -1,4 +1,4 @@
-/*La idea es crear un menú dinámico, agregando categorias y a esas categorias platos con su precio. */
+/* La idea es crear un menú para restaurant dinámico, agregando categorias y a esas categorias platos con su precio. */
 
 //El producto esta asociado a una categoria
 class producto {
@@ -21,9 +21,9 @@ class categoria {
 let listaCategoria = [];
 let listaProductos = [];
 
+
 let nombre = prompt("Ingresa tu nombre: ")
-alert(`Hola ${nombre}, con este simulador crearemos un menú de restaurant.`)
-alert("Escribe las categorias de tu menú, como PASTA, CARNES, ETC.")
+alert(`Hola ${nombre}, crearemos un menú de restaurant. Escribe las categorias de tu menú, como PASTA, CARNES, POSTRES... ETC.`)
 let nroCat = 1;
 
 do {
@@ -32,7 +32,6 @@ do {
     {
         unaCategoria = new categoria(nombreCat, nroCat);
         listaCategoria.push(unaCategoria);
-        console.log(listaCategoria);
         nroCat++;
     }
 }while(confirm(`¿Desea seguir agregando categorías?`))
@@ -41,15 +40,14 @@ alert(`Ok... ahora, agregaremos platos con su precio a cada categoría.`);
 
 let salgo = 0;
 do {
-    debugger  
     for (cat of listaCategoria){
         alert(`Ahora agregaremos productos a la categoría: ${cat.nombre}`)
         do {
-            let nombreProd = prompt("Nombre del plato:");
+            let nombreProd = prompt(`Nombre del plato para Menú: ${cat.nombre}`);
             let precio = prompt("Precio");
             let unProducto = new producto(cat.numero, nombreProd, precio);
             listaProductos.push(unProducto);
-        }while(confirm(`¿Desea agregar otro producto a esta categoría?`))
+        }while(confirm(`¿Desea agregar otro producto a la categoría ${cat.nombre}?`))
         salgo++;
     }
 }while( salgo != listaCategoria.length)
