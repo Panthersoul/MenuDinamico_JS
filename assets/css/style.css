@@ -2,24 +2,94 @@
     font-family: 'Architects Daughter', cursive;
 }
 
-.body{
+.bodyMAIN{
     background-color: black;
     color: white;
 }
-.body h1{
+.bodyMAIN h1{
     color: white;
     border-color: white;
     border-radius: 15px;
     border: solid 1px;
     padding: 10px;
 }
-.body a{
-    text-decoration: none;
+.bodyMAIN a{
+    text-decoration: none !important;
 }
 
 .flexCentrado{
     display: flex;
     justify-content: center;
     text-align: center;
+    flex-direction: column;
+    
+}
+
+.flexAbajo{
+    align-items: center;
+    display: flex;
+    justify-content: end;
+    flex-direction: column;
+}
+
+ul{
+    padding-inline-start: 0px !important;
+}
+
+
+/*Sombreado*/
+.sombra{
+    box-shadow:-20px -15px 50px rgb(53, 50, 50);
+}
+
+/* MENU */
+
+.articuloMenu {
+    /*Para usar con componentes li */
+    justify-content: space-between;
+    width: 80%;
+    display: inline-flex;
+    padding-inline-start: 0px;}
+
+.amarillo{color: #eee460;}
+.fondoAmarillo{background-color: #eee460 !important;}
+.fondoBlanco{background-color: none;}
+.sesentaAncho{width: 60%;}
+.treintaAncho{width: 30%;}
+.cienAncho{width: 100%;}
+.altoCabezal{height: 30vh;}
+.noPadding{padding: 0px;}
+.noBorde{border: 0px;}
+
+
+.bg-foto{
+    background-image: url("../images/pexels-anna-guerrero-1765005.webp");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover; 
+}
+
+@media screen and (max-width: 576px){ 
+    li > p {
+        font-size: x-small  !important;
+    }
+    
+}
+@media screen and (max-width: 768px){ 
+    li > p {
+        font-size: medium;
+    }
+    
+}
+@media screen and (max-width: 992px){ 
+    li > p {
+        font-size: large;
+    }
+    
+}
+@media screen and (min-width: 992px){ 
+    li > p {
+        font-size: x-large;
+    }
     
 }
