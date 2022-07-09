@@ -24,6 +24,10 @@
     flex-direction: column;
     
 }
+.centrado{
+    justify-content: center;
+    display: flex;
+}
 
 .flexAbajo{
     align-items: center;
