@@ -2,6 +2,8 @@
     font-family: 'Architects Daughter', cursive;
 }
 
+p {margin: 0px !important;}
+
 .bodyMAIN{
     background-color: black;
     color: white;
@@ -54,6 +56,13 @@ ul{
     width: 80%;
     display: inline-flex;
     padding-inline-start: 0px;}
+
+.articuloMenu:hover{
+    cursor: pointer;
+    border: solid 1px;
+    border-radius: 15px;
+    padding: 3px;
+}
 
 .amarillo{color: #eee460;}
 .fondoAmarillo{background-color: #eee460 !important;}

@@ -65,7 +65,7 @@ let nroCat = 1;
         }
      }while(confirm(`¿Desea seguir agregando categorías?`))
 
-*/
+
 // /*  AQUI ITERO SOBRE LAS CATEGORIAS PARA PEDIR LOS PRODUCTOS */
 /*
  let salgo = 0;
@@ -85,7 +85,6 @@ let nroCat = 1;
     }while( salgo != listaCategoria.length)
 
 
-    */
 //////////////////////////////////
 
 
