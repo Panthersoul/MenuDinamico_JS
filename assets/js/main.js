@@ -30,7 +30,7 @@ let listaProductos = [];
 /****************************************** */
 
 /*AQUI CARGO DATOS DE PRUEBA*/
-        /*
+        
             listaCategoria.push({nombre: 'PASTA', numero: 1});
             listaCategoria.push({nombre: 'CARNES', numero: 2});
             listaCategoria.push({nombre: 'POSTRES', numero: 3});
@@ -43,31 +43,31 @@ let listaProductos = [];
             listaProductos.push({categoria: 3, nombre: 'Helado', precio: '120'});
             listaProductos.push({categoria: 3, nombre: 'Budín', precio: '44'});
             listaProductos.push({categoria: 3, nombre: 'Alfajor', precio: '88'});
-        */
+        
 
 /***************************************** */
 
-
+/*
 let nombre = prompt("Ingresa el nombre de tu Restaurant: ")
 alert(`Hola ${nombre}, crearemos un menú. Escribe las categorias de tu menú, como PASTA, CARNES, POSTRES... ETC.`)
 let nroCat = 1;
 
 /* AQUI PIDO LAS CATEGORIAS A MANO */
- do {
-     let nombreCat = prompt("Ingresa una categoría: ");    
-     if (nombreCat != "null") 
-     {
-         unaCategoria = new categoria(nombreCat, nroCat);
-         //console.log(unaCategoria);
-         listaCategoria.push(unaCategoria);
-         nroCat++;
-     }
- }while(confirm(`¿Desea seguir agregando categorías?`))
+/*
+    do {
+        let nombreCat = prompt("Ingresa una categoría: ");    
+        if (nombreCat != "null") 
+        {
+            unaCategoria = new categoria(nombreCat, nroCat);
+            //console.log(unaCategoria);
+            listaCategoria.push(unaCategoria);
+            nroCat++;
+        }
+     }while(confirm(`¿Desea seguir agregando categorías?`))
 
-
-///////////////////////////////////
-
+*/
 // /*  AQUI ITERO SOBRE LAS CATEGORIAS PARA PEDIR LOS PRODUCTOS */
+/*
  let salgo = 0;
  do {
      for (cat of listaCategoria){
@@ -84,7 +84,10 @@ let nroCat = 1;
      }
     }while( salgo != listaCategoria.length)
 
+
+    */
 //////////////////////////////////
+
 
 /* FUNCIONES PARA FILTRAR Y BUSCAR */
 
@@ -107,14 +110,65 @@ function productosPorCategoria (nroCategoria)  {
         }
 }
 
-/**/
-let produ = prompt("Escribe una categoria para ver sus productos: ")
-let idCat = categoriaIDporNombre(produ);
-let products = productosPorCategoria(idCat);
+/////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
 
-console.log(products);
+
+// Creo los divs con las categorias
+function cargoCategoriasHTML(){
+    let menu1 = document.getElementById("contenidoMenu");
+    let divListaProd = document.createElement("div");
+    divListaProd.addClass = "flexcentrado";
+
+    listaCategoria.forEach(element => {
+        divListaProd.innerHTML += `
+        <div class="p-4">
+            <h3><strong>${element.nombre}</strong></h3>
+        </div>    
+        <div>
+            <ul id="${element.nombre}">                
+            </ul>
+        </div>
+        `;
+        menu1.append(divListaProd);    
+    });
+}
+
+
+/* A cada categoria YA EXISTENTE EN EL HTML le agrego sus productos */
+function cargoProductosACategoriasHTML(){
+
+    listaCategoria.forEach(element => {
+        let nodo = document.getElementById(element.nombre);
+        let nro = categoriaIDporNombre(element.nombre);
+        let prodsAcargar = productosPorCategoria(nro);
+        prodsAcargar.forEach(elem => {
+            
+    
+            let li = document.createElement("li");
+            li.className = ("articuloMenu");
+            li.innerHTML = `
+            <p>${elem.nombre}</p><p>${elem.precio}</p>
+            `;
+            nodo.appendChild(li);
+        })
+
+    });
+
+}
+
+
+/**/
+//let produ = prompt("Escribe una categoria para ver sus productos: ")
+//let idCat = categoriaIDporNombre(produ);
+//let products = productosPorCategoria(idCat);
+
+
 
 /*
 console.log(listaCategoria);
 console.log(listaProductos);
-*/
+*/ 
+
+cargoCategoriasHTML();
+cargoProductosACategoriasHTML();
