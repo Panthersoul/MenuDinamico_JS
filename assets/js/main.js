@@ -1,6 +1,6 @@
-/*  La idea es crear un menú para restaurant dinámico, 
-    agregando categorias y a esas categorias 
-    platos con su respectivo precio. Y luego realizar las comandas*/
+/*  La idea es crear un menú dinámico para restaurant agregando categorias y a esas categorias 
+    platos con su respectivo precio. 
+    Y luego realizar las comandas*/
 
 //El producto esta asociado a una categoria
 class producto {
@@ -96,7 +96,7 @@ let addProducto = () => {
     
     let prod = new producto;
     prod.categoria = seleccionCategoria.value;
-    prod.nombre = product.value;
+    prod.nombre = product.value.toUpperCase();
     prod.precio = precio.value;
     listaProductos.push(prod);
     product.value = "";
@@ -137,8 +137,6 @@ mostrar.addEventListener("click", () => {
 
 
 ////////////////////////////////////////////////////////////////
-
-
 /* FUNCIONES PARA FILTRAR Y BUSCAR */
 //Recibo Nombre devuelvo id
 function categoriaIDporNombre (nombreCategoria){
@@ -194,7 +192,7 @@ function cargoProductosACategoriasHTML(){
             let li = document.createElement("li");
             li.className = ("articuloMenu");
             li.innerHTML = `
-            <p>${elem.nombre}</p><p>${elem.precio}</p>
+            <p>${elem.nombre}</p><p>$ ${elem.precio}</p>
             `;
             nodo.appendChild(li);
         })
