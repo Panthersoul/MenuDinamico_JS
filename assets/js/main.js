@@ -48,6 +48,9 @@ let listaNombreCat = [];
 const agregoCategoria = (e) => {
     listaNombreCat.push(inputCategoria.value.toUpperCase());
     inputCategoria.value = "";
+    let nom = document.getElementById("inputNombre");
+    nom.disabled = true;
+    
 }
 
 inputCategoria.addEventListener("keyup", (e)=>{
