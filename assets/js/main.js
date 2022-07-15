@@ -114,12 +114,13 @@ product.addEventListener("keyup", (e)=>{
     }
 })
 
-precio.addEventListener("keypress", (e)=>{
+precio.addEventListener("keyup", (e)=>{
     e.preventDefault;
     if (e.code == "Enter"){
         addProducto();
         precio.value = "";
         product.value = "";
+        product.focus()
     }
 })
 
