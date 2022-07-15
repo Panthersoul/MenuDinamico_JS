@@ -24,11 +24,13 @@ p {margin: 0px !important;}
     justify-content: center;
     text-align: center;
     flex-direction: column;
+    align-items: center;
     
 }
 .centrado{
     justify-content: center;
     display: flex;
+    align-items: center;
 }
 
 .flexAbajo{
@@ -74,7 +76,15 @@ ul{
 .noPadding{padding: 0px;}
 .noBorde{border: 0px;}
 
-
+.margen20{
+    margin: 20px;
+}
+.margenBajo20{
+    margin-bottom: 20px;
+}
+.trescientosAncho{
+    width: 300px;
+}
 .bg-foto{
     background-image: url("../images/pexels-anna-guerrero-1765005.webp");
     background-repeat: no-repeat;

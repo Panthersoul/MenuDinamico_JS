@@ -27,70 +27,120 @@ class categoria {
 let listaCategoria = [];
 let listaProductos = [];
 
-/****************************************** */
 
-/*AQUI CARGO DATOS DE PRUEBA*/
-        
-            listaCategoria.push({nombre: 'PASTA', numero: 1});
-            listaCategoria.push({nombre: 'CARNES', numero: 2});
-            listaCategoria.push({nombre: 'POSTRES', numero: 3});
+// AQUI AGREGO CATEGORIAS
+let menu = document.getElementById("menu");
 
-            listaProductos.push({categoria: 1, nombre: 'Ravioles', precio: '120'});
-            listaProductos.push({categoria: 1, nombre: 'Sorrentinos', precio: '150'});
-            listaProductos.push({categoria: 1, nombre: 'Tortelines', precio: '200'});
-            listaProductos.push({categoria: 2, nombre: 'Bife', precio: '200'});
-            listaProductos.push({categoria: 2, nombre: 'Asado', precio: '300'});
-            listaProductos.push({categoria: 3, nombre: 'Helado', precio: '120'});
-            listaProductos.push({categoria: 3, nombre: 'Budín', precio: '44'});
-            listaProductos.push({categoria: 3, nombre: 'Alfajor', precio: '88'});
-        
+let boton = document.getElementById("submitCategoria");
+let inputCategoria = document.getElementById("inputCategoria");
+let botonListo = document.querySelector("#listoCategoria");
+let seleccionCategoria = document.getElementById("selectCategoria");
+let divAgregoCat = document.getElementById("agregoCategoria");
 
-/***************************************** */
-
-/*
-let nombre = prompt("Ingresa el nombre de tu Restaurant: ")
-alert(`Hola ${nombre}, crearemos un menú. Escribe las categorias de tu menú, como PASTA, CARNES, POSTRES... ETC.`)
-let nroCat = 1;
-
-/* AQUI PIDO LAS CATEGORIAS A MANO */
-/*
-    do {
-        let nombreCat = prompt("Ingresa una categoría: ");    
-        if (nombreCat != "null") 
-        {
-            unaCategoria = new categoria(nombreCat, nroCat);
-            //console.log(unaCategoria);
-            listaCategoria.push(unaCategoria);
-            nroCat++;
-        }
-     }while(confirm(`¿Desea seguir agregando categorías?`))
+let divAgregoProd = document.getElementById("agregoProductos");
 
 
-// /*  AQUI ITERO SOBRE LAS CATEGORIAS PARA PEDIR LOS PRODUCTOS */
-/*
- let salgo = 0;
- do {
-     for (cat of listaCategoria){
-         alert(`Ahora agregaremos productos a la categoría: ${cat.nombre}`)
-         do {
-             let nombreProd = prompt(`Nombre del plato para Menú: ${cat.nombre}`);
-             if(nombreProd != null){
-                 let precio = prompt("Precio");
-                 let unProducto = new producto(cat.numero, nombreProd, precio);
-                 listaProductos.push(unProducto);
-             }
-         }while(confirm(`¿Desea agregar otro producto a la categoría ${cat.nombre}?`))
-         salgo++;
-     }
-    }while( salgo != listaCategoria.length)
+/*Escondo Menu*/
+menu.style.opacity = 0;
+divAgregoProd.style.display = "none";
+
+let listaNombreCat = [];
+const agregoCategoria = (e) => {
+    listaNombreCat.push(inputCategoria.value.toUpperCase());
+    inputCategoria.value = "";
+}
+
+inputCategoria.addEventListener("keyup", (e)=>{
+    e.preventDefault;
+    if (e.code == "Enter"){
+        agregoCategoria();
+    }
+})
 
 
-//////////////////////////////////
+/* EVENTOS */
+boton.addEventListener("click", agregoCategoria);
+
+
+/*Aqui cargo la lista de categorias y muestro el Agregar Productos*/
+botonListo.addEventListener("click", ()=>{
+    divAgregoCat.style.display = "none";
+    divAgregoProd.style.display = "flex";
+    let nombreRe = document.getElementById("inputNombre").value;
+    let nombreResto = document.getElementById("nombreResto");
+    nombreResto.innerText = nombreRe;
+
+    /*Aquí cargo la lista de categorias con un ID*/
+    for (let i = 0; i < listaNombreCat.length; i++){
+        let cat = new categoria;
+        cat.nombre = listaNombreCat[i];
+        cat.numero = i + 1 ;
+        listaCategoria.push(cat);
+    }
+    //cargo el select 
+    
+    for (cat of listaCategoria){
+        let opion = document.createElement("option");
+        opion.value = cat.numero
+        opion.innerHTML = cat.nombre;
+        seleccionCategoria.appendChild(opion);
+    }
+})
+
+/** PRODUCTOS  */
+let product = document.getElementById("inputProducto");
+let precio = document.getElementById("precioProducto");
+let botonProd = document.getElementById("botonProducto");
+
+let addProducto = () => {
+    
+    let prod = new producto;
+    prod.categoria = seleccionCategoria.value;
+    prod.nombre = product.value;
+    prod.precio = precio.value;
+    listaProductos.push(prod);
+    product.value = "";
+    precio.value = "";
+}
+
+
+//botonProd.addEventListener("click", );
+botonProd.onclick = addProducto;
+
+product.addEventListener("keyup", (e)=>{
+    e.preventDefault;
+    if (e.code == "Enter"){
+        precio.focus()
+    }
+})
+
+precio.addEventListener("keypress", (e)=>{
+    e.preventDefault;
+    if (e.code == "Enter"){
+        addProducto();
+        precio.value = "";
+        product.value = "";
+    }
+})
+
+let mostrar = document.getElementById("showMenu");
+mostrar.addEventListener("click", () => {
+    menu.style.opacity = 1;
+    divAgregoProd.style.display = "none";
+    divAgregoProd.style.display = "none";
+    let main = document.querySelector("main");
+    main.classList.add("bg-foto")
+    cargoCategoriasHTML();
+    cargoProductosACategoriasHTML();
+
+})
+
+
+////////////////////////////////////////////////////////////////
 
 
 /* FUNCIONES PARA FILTRAR Y BUSCAR */
-
-/*Recibe el nombre de una categoria y devuelve su ID*/
+//Recibo Nombre devuelvo id
 function categoriaIDporNombre (nombreCategoria){
     let existeCat = listaCategoria.some(catego => catego.nombre == nombreCategoria.toUpperCase());
     if (existeCat){
@@ -99,7 +149,7 @@ function categoriaIDporNombre (nombreCategoria){
     }else{return ("No existe la categoria.")}
 }
 
-/*Recibe el ID de categoria y devuelve todos los productos asociados*/
+/*Recido Id Categoria, retorno lista productos*/
 function productosPorCategoria (nroCategoria)  {    
     let prods = listaProductos.filter(prod => prod.categoria == nroCategoria);
         if (prods.length > 0){
@@ -136,14 +186,11 @@ function cargoCategoriasHTML(){
 
 /* A cada categoria YA EXISTENTE EN EL HTML le agrego sus productos */
 function cargoProductosACategoriasHTML(){
-
     listaCategoria.forEach(element => {
         let nodo = document.getElementById(element.nombre);
         let nro = categoriaIDporNombre(element.nombre);
         let prodsAcargar = productosPorCategoria(nro);
         prodsAcargar.forEach(elem => {
-            
-    
             let li = document.createElement("li");
             li.className = ("articuloMenu");
             li.innerHTML = `
@@ -157,17 +204,3 @@ function cargoProductosACategoriasHTML(){
 }
 
 
-/**/
-//let produ = prompt("Escribe una categoria para ver sus productos: ")
-//let idCat = categoriaIDporNombre(produ);
-//let products = productosPorCategoria(idCat);
-
-
-
-/*
-console.log(listaCategoria);
-console.log(listaProductos);
-*/ 
-
-cargoCategoriasHTML();
-cargoProductosACategoriasHTML();
