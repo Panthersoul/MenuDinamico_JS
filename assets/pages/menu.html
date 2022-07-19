@@ -22,46 +22,27 @@
         <div>
             <nav class="navbar navbar-expand-lg navbar-light bg-light p-3">
                 <a class="navbar-brand" id="mostrar" href="../../index.html">Salir </a>
-                <!--
-                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-              -->
                 <div class="collapse navbar-collapse" id="navbarNav">
-                 <!-- <ul class="navbar-nav">
-                    <li class="nav-item active">
-                      <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Features</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Pricing</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link disabled" href="#">Disabled</a>
-                    </li>-->
                   </ul>
                 </div>
               </nav>
-
-
         </div>
     </header>
     <main class="pt-5">
         <div class="flexCentrado">
             <div id="agregoCategoria" >
               
-              <label for="inputNombre">Ingrese un Nombre</label>
-                <input type="text" id="inputNombre" class="margenBajo20"><br>
+             
 
-                <label for="inputCategoria" class="margenBajo20">Ingrese tantas categorías como tendrá su menu. <br> EJ: Pasta, Carnes, Postres...</label><br>
+                <label for="inputNombre" class="margenBajo20">Ingrese un nombre para el Restaurant <br></label><br>                
+                <input type="text" id="inputNombre" class="margenBajo20"><br>
+                <label for="inputCategoria" class="margenBajo20">Ingrese las categorias de su carta. <br>Ej: Pasta, Carnes, Postres...</label><br>
                 <input type="text" id="inputCategoria" class="margenBajo20"><br>
-                <button id="submitCategoria" class="margenBajo20">Agregar</button><br>
-                <button id="listoCategoria">Listo!</button>
+                <button id="submitCategoria" class="margenBajo20">Agregar (enter)</button><br>
+                <button id="listoCategoria" class="margen20">Listo!</button>
             </div>
           
-            <div id="agregoProductos" class="trescientosAncho">
+            <div id="agregoProductos" class="trescientosAncho flexCentrado">
               <div class="margen20 flexCentrado">
                   <label for="selectCategoria">Seleccione categoria</label>  
                   <select name="cate" id="selectCategoria" class="margenBajo20"></select>
@@ -69,7 +50,7 @@
                   <input type="text" id="inputProducto">
                   <label for="precioProducto">Precio</label>
                   <input type="text" id="precioProducto">
-                  <button id="botonProducto" class="margen20">Agregar</button>
+                  <button id="botonProducto" class="margen20">Agregar (enter)</button>
               </div>
               <div>
                 <button id="showMenu">
