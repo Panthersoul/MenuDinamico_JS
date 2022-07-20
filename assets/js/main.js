@@ -136,8 +136,10 @@ mostrar.addEventListener("click", () => {
     main.classList.add("bg-foto")
     cargoCategoriasHTML();
     cargoProductosACategoriasHTML();
-
+    
 })
+
+
 
 
 ////////////////////////////////////////////////////////////////
@@ -194,9 +196,10 @@ function cargoProductosACategoriasHTML(){
         let prodsAcargar = productosPorCategoria(nro);
         prodsAcargar.forEach(elem => {
             let li = document.createElement("li");
-            li.className = ("articuloMenu");
+            li.addEventListener("click", agregoCarrito);
+            li.className = ("articuloMenu carrito");
             li.innerHTML = `
-            <p>${elem.nombre}</p><p>$ ${elem.precio}</p>
+            <p class="nomElemCarr">${elem.nombre}</p><p class="precioElemCarr">$ ${elem.precio}</p>
             `;
             nodo.appendChild(li);
         })
@@ -205,4 +208,22 @@ function cargoProductosACategoriasHTML(){
 
 }
 
+let carrito = [];
+let arc = [];
+let articulos = document.querySelectorAll(".carrito");
+
+const agregoCarrito = (e) => {
+    let a = e.target.querySelector(".nomElemCarr");
+    let b = e.target.querySelector(".precioElemCarr");
+    
+    let nuevoProdNom = document.createElement("p");
+    nuevoProdNom.className = "carritoNombre";
+    nuevoProdNom.innerHTML = a.innerHTML;
+    
+    let nuevoProdPrecio = document.createElement("p");
+    nuevoProdPrecio.className = "carritoPrecio";
+    nuevoProdPrecio.innerHTML = b.innerHTML;
+
+    carrito.push([nuevoProdNom,nuevoProdPrecio]);
+}
 
