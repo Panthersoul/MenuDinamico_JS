@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
-    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/style.css">
 
@@ -20,37 +20,46 @@
 <body class="bodyMENU">
     <header>
         <div>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light p-3">
-                
+            <nav class="navbar navbar-expand-lg navbar-light bg-light p-3 fixed-top">              
               <a class="navbar-brand" href="../../index.html">Salir </a>
               
-                <div class="collapse navbar-collapse" id="navbarNav">
-                  
-                </div>
-              </nav>
+              <div class="collapse navbar-collapse" id="navbarNav">
+              
+              </div>
+
+              <button id="carrito"  type="button"  class="carrito primary button d-none" data-bs-toggle="modal" data-bs-target="#modalCarrito">Ver Carrito</button>
+              
+
+            </nav>
         </div>
     </header>
     <main class="pt-5">
      
         <div class="flexCentrado">
-            <div id="agregoCategoria" >
-              
-             
-
+            <div id="agregoCategoria" class="margenAlto30" >
                 <label for="inputNombre" class="margenBajo20">Ingrese un nombre para el Restaurant <br></label><br>                
                 <input type="text" id="inputNombre" class="margenBajo20"><br>
                 <label for="inputCategoria" class="margenBajo20">Ingrese las categorias de su carta. <br>Ej: Pasta, Carnes, Postres...</label><br>
                 <input type="text" id="inputCategoria" class="margenBajo20"><br>
                 <button id="submitCategoria" class="margenBajo20">Agregar (enter)</button><br>
                 <button id="listoCategoria" class="margen20">Listo!</button>
+                
+                <div id="listaCateg" class="d-none">
+                  <hr>
+                  <h4>Categorías</h4>
+                    <ul class="categoriaListas">
+                    </ul>
+                </div>
+                
+
             </div>
           
-            <div id="agregoProductos" class="trescientosAncho flexCentrado">
+            <div id="agregoProductos" class="trescientosAncho flexCentrado margenAlto30">
               <div class="margen20 flexCentrado">
                   <label for="selectCategoria">Seleccione categoria</label>  
                   <select name="cate" id="selectCategoria" class="margenBajo20"></select>
                   <label for="inputProducto">Nombre Producto</label>
-                  <input type="text" id="inputProducto">
+                  <input type="text" id="inputProducto"><span id="checkAgregado" class="d-none verde">Agregado!</span>
                   <label for="precioProducto">Precio</label>
                   <input type="text" id="precioProducto">
                   <button id="botonProducto" class="margen20">Agregar (enter)</button>
@@ -66,12 +75,9 @@
       <!-- BLOQUE DEL MENU-->
       <div id="menu">
           <div class="flexCentrado">
-              <div class="container border sombra mb-5 bg-body rounded sesentaAncho noPadding noBorde" >
+              <div class="container border sombra mb-5 bg-body rounded sesentaAncho noPadding noBorde margenAlto30" >
                   <div class="bg-foto cienAncho altoCabezal noPadding flexAbajo">
                       <h1 id="nombreResto"></h1>
-                      <div id="carrito">
-                        <h6>hola carro</h6>
-                      </div>
                   </div>
                   <div id="contenidoMenu" class="container noPadding">
                     <!-- AQUI VA EL CONTENIDO DINAMICO -->
@@ -80,11 +86,32 @@
           </div>
       </div>
       <!-- TERMINA BLOQUE MENU-->
-     
+      
+       <!-- Modal -->
+        <div class="modal fade" id="modalCarrito" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Pedido</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                ...
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Enviar Pedido</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!---->
     </main>
     <footer>
 
     </footer>
     <script src="../js/main.js"></script>
+    
+    
 </body>
 </html>

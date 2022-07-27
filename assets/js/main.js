@@ -46,17 +46,53 @@ divAgregoProd.style.display = "none";
 
 let listaNombreCat = [];
 const agregoCategoria = (e) => {
-    listaNombreCat.push(inputCategoria.value.toUpperCase());
+    let valorCategoria = inputCategoria.value.toUpperCase() 
+    listaNombreCat.push(valorCategoria);
+    let li = document.createElement("li");
+    li.innerHTML = `
+        ${valorCategoria} 
+    `
+/* AQUI AGREGO EL BOTON DE ELIMINAR CATEGORIAS
+
+    let img = document.createElement("img");
+    img.src = "../images/delete.png";
+    img.classList.add("puntero");
+    li.append(img);
+
+    
+    img.addEventListener("click", (e)=>{
+        e.preventDefault;
+        let lista = document.getElementsByClassName(".categoriaListas");
+        //console.log(lista);
+        //console.log(e.target.parentNode);
+        //lista.remove((e.target.parentNode));
+        //console.log(e.target.parentNode.innerText);
+        let nodo = e.target.parentNode.innerText;
+        console.log( listaNombreCat.indexOf(listaNombreCat.filter(el => nodo)));
+
+    })
+    //li.addEventListener("click")
+    //li.innerText = valorCategoria;
+*/
+
+
+    let divCateg = document.getElementById("listaCateg");
+    divCateg.classList.remove("d-none");
+    document.querySelector(".categoriaListas").append(li);
     inputCategoria.value = "";
     let nom = document.getElementById("inputNombre");
     nom.disabled = true;
-    
 }
 
+
+
+
 inputCategoria.addEventListener("keyup", (e)=>{
-    e.preventDefault;
+    e.preventDefault;    
     if (e.code == "Enter"){
-        agregoCategoria();
+        if (inputCategoria.value != ""){
+            agregoCategoria();
+        }else{alert("Debe escribir un nombre de categoria.")}
     }
 })
 
@@ -94,14 +130,19 @@ botonListo.addEventListener("click", ()=>{
 let product = document.getElementById("inputProducto");
 let precio = document.getElementById("precioProducto");
 let botonProd = document.getElementById("botonProducto");
+let produ = document.getElementById("checkAgregado");
 
 let addProducto = () => {
-    
     let prod = new producto;
     prod.categoria = seleccionCategoria.value;
     prod.nombre = product.value.toUpperCase();
-    prod.precio = precio.value;
-    listaProductos.push(prod);
+    if (isNaN(precio.value)){
+        alert("El precio debe ser un valor numérico")
+    }else{
+        prod.precio = precio.value;
+        listaProductos.push(prod);
+        produ.classList.remove("d-none");
+    }
     product.value = "";
     precio.value = "";
 }
@@ -109,6 +150,10 @@ let addProducto = () => {
 
 //botonProd.addEventListener("click", );
 botonProd.onclick = addProducto;
+
+product.addEventListener("input", ()=>{
+    produ.classList.add("d-none");
+})
 
 product.addEventListener("keyup", (e)=>{
     e.preventDefault;
@@ -212,18 +257,41 @@ let carrito = [];
 let arc = [];
 let articulos = document.querySelectorAll(".carrito");
 
+
 const agregoCarrito = (e) => {
-    let a = e.target.querySelector(".nomElemCarr");
-    let b = e.target.querySelector(".precioElemCarr");
+    let NombreProdCarrito = e.target.querySelector(".nomElemCarr");
+    let PrecioProdCarrito = e.target.querySelector(".precioElemCarr");
     
     let nuevoProdNom = document.createElement("p");
     nuevoProdNom.className = "carritoNombre";
-    nuevoProdNom.innerHTML = a.innerHTML;
+    nuevoProdNom.innerHTML = NombreProdCarrito.innerHTML;
     
     let nuevoProdPrecio = document.createElement("p");
     nuevoProdPrecio.className = "carritoPrecio";
-    nuevoProdPrecio.innerHTML = b.innerHTML;
+    nuevoProdPrecio.innerHTML = PrecioProdCarrito.innerHTML;
 
-    carrito.push([nuevoProdNom,nuevoProdPrecio]);
+    console.log();
+    
+    let productoCarro = {
+        nombre: nuevoProdNom.innerHTML,
+        precio: nuevoProdPrecio.innerHTML
+    }
+
+    if (localStorage.getItem("carrito") == null){
+        localStorage.setItem("carrito", JSON.stringify(productoCarro));
+    }else{
+        let carro = localStorage.getItem("carrito")
+    }
+    
+    //carrito.push([nuevoProdNom, nuevoProdPrecio]);
+
+
+    if (carrito.length != null){
+        let carrin = document.querySelector(".carrito");
+        carrin.classList.remove("d-none");
+    }
+
+
 }
 
+let array  = [];

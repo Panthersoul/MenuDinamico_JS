@@ -51,7 +51,6 @@ ul{
 }
 
 /* MENU */
-
 .articuloMenu {
     /*Para usar con componentes li */
     justify-content: space-between;
@@ -66,6 +65,13 @@ ul{
     padding: 3px;
 }
 
+.categoriaListas{
+    list-style: none;
+    color: rgb(16, 100, 16);
+}
+
+.puntero{cursor: pointer;}
+.verde{color: rgb(16, 100, 16);}
 .amarillo{color: #eee460;}
 .fondoAmarillo{background-color: #eee460 !important;}
 .fondoBlanco{background-color: none;}
@@ -75,16 +81,11 @@ ul{
 .altoCabezal{height: 30vh;}
 .noPadding{padding: 0px;}
 .noBorde{border: 0px;}
+.margen20{margin: 20px;}
+.margenBajo20{margin-bottom: 20px;}
+.margenAlto30{margin-top: 30px;}
+.trescientosAncho{width: 300px;}
 
-.margen20{
-    margin: 20px;
-}
-.margenBajo20{
-    margin-bottom: 20px;
-}
-.trescientosAncho{
-    width: 300px;
-}
 .bg-foto{
     background-image: url("../images/pexels-anna-guerrero-1765005.webp");
     background-repeat: no-repeat;
