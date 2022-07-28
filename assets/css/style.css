@@ -65,6 +65,24 @@ ul{
     padding: 3px;
 }
 
+.articuloCarro{
+    justify-content: space-between;
+    width: 80%;
+    display: inline-flex;
+    padding-inline-start: 0px;
+}
+.articuloCarro:hover{
+    cursor: pointer;
+    border: solid 1px;
+    border-radius: 15px;
+    padding: 3px;
+}
+.totalCarro{
+    display: flex;
+    justify-content: end;
+}
+
+
 .categoriaListas{
     list-style: none;
     color: rgb(16, 100, 16);
@@ -85,6 +103,7 @@ ul{
 .margenBajo20{margin-bottom: 20px;}
 .margenAlto30{margin-top: 30px;}
 .trescientosAncho{width: 300px;}
+.margenIZ{margin-left: 10px;}
 
 .bg-foto{
     background-image: url("../images/pexels-anna-guerrero-1765005.webp");
