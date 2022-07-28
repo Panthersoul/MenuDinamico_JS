@@ -292,19 +292,16 @@ const agregoCarrito = (e) => {
     }
 }
 
-/* Agrego al boton "VER CARRITO" el evento que muestra y carga el carro*/
+/* Agrego al boton "VER CARRITO" los eventos que muestran cargan y eleminan*/
 let verCarro = document.getElementById("carrito");
 
 const quitarCarrito = (e) => {
-    const listado = JSON.parse(localStorage.getItem("carrito"));
-    
+    let listado = JSON.parse(localStorage.getItem("carrito"));
     let indice = listado.findIndex(elem => {
         return elem.nombre === e.target.firstChild.innerText
     });
-    //const newList = listado.slice(indice, 1);
-    delete listado[indice];
+    listado.splice(indice, 1);
     localStorage.setItem("carrito", JSON.stringify(listado));
-    //localStorage.setItem("carrito", JSON.stringify(newList));
     cargarCarrito();
 }
 
@@ -322,7 +319,6 @@ cargarCarrito = () => {
         li.innerHTML = `<p class="nomElemCarr">${elem.nombre}</p><p class="precioElemCarr">$ ${elem.precio}</p>`;
         li.className = "articuloCarro";
         ul.appendChild(li);
-        console.log(total);
     })
 
     let suma = document.createElement("h4");
