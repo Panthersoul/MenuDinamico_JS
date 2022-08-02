@@ -58,17 +58,21 @@ cargarCarrito = () => {
     const listado = JSON.parse(localStorage.getItem("carrito"));
     let ul = document.createElement("ul");
     let total = 0;
+    let monto = [];
+
     listado.forEach( elem => { 
         let li = document.createElement("li");
         total = total + parseInt(elem.precio);
+        monto.push(parseInt(elem.precio));
         li.innerHTML = `<p class="nomElemCarr">${elem.nombre}</p><p class="precioElemCarr">$ ${elem.precio}</p>`;
         li.className = "articuloCarro";
         ul.appendChild(li);
     })
 
+    let sumatoria = calcularTotal(...monto);
     let suma = document.createElement("h4");
     suma.className = "totalCarro";
-    suma.innerHTML = `El total del pedido es $<span class="verde margenIZ">${total}</span>`;
+    suma.innerHTML = `El total del pedido es $<span class="verde margenIZ">${sumatoria}</span>`;
     suma.classList.add("p-3");
 
     modalTotal.appendChild(suma);
@@ -79,6 +83,10 @@ cargarCarrito = () => {
         art.addEventListener("click", quitarCarrito)
     }
 
+}
+
+function calcularTotal (...monto){
+    return monto.reduce((acc, num) => acc + num, 0);
 }
 
 verCarro.addEventListener("click", ()=>{
