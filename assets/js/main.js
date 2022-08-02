@@ -30,13 +30,11 @@ let listaProductos = [];
 
 // AQUI AGREGO CATEGORIAS
 let menu = document.getElementById("menu");
-
 let boton = document.getElementById("submitCategoria");
 let inputCategoria = document.getElementById("inputCategoria");
 let botonListo = document.querySelector("#listoCategoria");
 let seleccionCategoria = document.getElementById("selectCategoria");
 let divAgregoCat = document.getElementById("agregoCategoria");
-
 let divAgregoProd = document.getElementById("agregoProductos");
 
 
@@ -52,30 +50,6 @@ const agregoCategoria = (e) => {
     li.innerHTML = `
         ${valorCategoria} 
     `
-/* AQUI AGREGO EL BOTON DE ELIMINAR CATEGORIAS
-
-    let img = document.createElement("img");
-    img.src = "../images/delete.png";
-    img.classList.add("puntero");
-    li.append(img);
-
-    
-    img.addEventListener("click", (e)=>{
-        e.preventDefault;
-        let lista = document.getElementsByClassName(".categoriaListas");
-        //console.log(lista);
-        //console.log(e.target.parentNode);
-        //lista.remove((e.target.parentNode));
-        //console.log(e.target.parentNode.innerText);
-        let nodo = e.target.parentNode.innerText;
-        console.log( listaNombreCat.indexOf(listaNombreCat.filter(el => nodo)));
-
-    })
-    //li.addEventListener("click")
-    //li.innerText = valorCategoria;
-*/
-
-
     let divCateg = document.getElementById("listaCateg");
     divCateg.classList.remove("d-none");
     document.querySelector(".categoriaListas").append(li);
@@ -84,21 +58,16 @@ const agregoCategoria = (e) => {
     nom.disabled = true;
 }
 
-
-
-
 inputCategoria.addEventListener("keyup", (e)=>{
     e.preventDefault;    
     if (e.code == "Enter"){
-        if (inputCategoria.value != ""){
-            agregoCategoria();
-        }else{alert("Debe escribir un nombre de categoria.")}
+        inputCategoria.value == "" ? alert("Debe escribir un nombre de categoria.") : agregoCategoria();
     }
 })
 
-
-/* EVENTOS */
-boton.addEventListener("click", agregoCategoria);
+boton.addEventListener("click", () => {
+    inputCategoria.value == "" ? alert("Debe escribir un nombre de categoria.") : agregoCategoria();
+});
 
 
 /*Aqui cargo la lista de categorias y muestro el Agregar Productos*/
@@ -126,7 +95,9 @@ botonListo.addEventListener("click", ()=>{
     }
 })
 
-/** PRODUCTOS  */
+
+
+/** SECCION PRODUCTOS  */
 let product = document.getElementById("inputProducto");
 let precio = document.getElementById("precioProducto");
 let botonProd = document.getElementById("botonProducto");
@@ -173,12 +144,17 @@ precio.addEventListener("keyup", (e)=>{
 })
 
 let mostrar = document.getElementById("showMenu");
+
+const limpiarCarro = () => {
+    localStorage.getItem("carrito") == null || localStorage.removeItem("carrito");
+}
+
 mostrar.addEventListener("click", () => {
     menu.style.opacity = 1;
     divAgregoProd.style.display = "none";
-    divAgregoProd.style.display = "none";
     let main = document.querySelector("main");
     main.classList.add("bg-foto")
+    limpiarCarro();
     cargoCategoriasHTML();
     cargoProductosACategoriasHTML();
     
@@ -252,91 +228,4 @@ function cargoProductosACategoriasHTML(){
     });
 
 }
-
-
-let arc = [];
-
-let articulos = document.querySelectorAll(".carrito");
-const carrito = [];
-
-const agregoCarrito = (e) => {
-    
-    let NombreProdCarrito = e.target.querySelector(".nomElemCarr");
-    let PrecioProdCarrito = e.target.querySelector(".precioElemCarr");
-    
-    let nuevoProdNom = document.createElement("p");
-    nuevoProdNom.className = "carritoNombre";
-    nuevoProdNom.innerHTML = NombreProdCarrito.innerHTML;
-    
-    let nuevoProdPrecio = document.createElement("p");
-    nuevoProdPrecio.className = "carritoPrecio";
-    nuevoProdPrecio.innerHTML = PrecioProdCarrito.innerHTML;
-
-    
-    let productoCarro = {
-        nombre: nuevoProdNom.innerHTML,
-        precio: nuevoProdPrecio.innerHTML.substring(1,nuevoProdPrecio.innerHTML.length).trim()
-    }
-    
-    if (localStorage.getItem("carrito") == null){
-        carrito.push(productoCarro);
-        localStorage.setItem("carrito", JSON.stringify(carrito));
-    }else{
-        const listado = JSON.parse(localStorage.getItem("carrito"));
-        listado.push(productoCarro);
-        localStorage.setItem("carrito", JSON.stringify(listado));
-    }
-    if (carrito.length != null){
-        let carrin = document.querySelector(".carrito");
-        carrin.classList.remove("d-none");
-    }
-}
-
-/* Agrego al boton "VER CARRITO" los eventos que muestran cargan y eleminan*/
-let verCarro = document.getElementById("carrito");
-
-const quitarCarrito = (e) => {
-    let listado = JSON.parse(localStorage.getItem("carrito"));
-    let indice = listado.findIndex(elem => {
-        return elem.nombre === e.target.firstChild.innerText
-    });
-    listado.splice(indice, 1);
-    localStorage.setItem("carrito", JSON.stringify(listado));
-    cargarCarrito();
-}
-
-cargarCarrito = () => {
-    let modalCuerpo = document.getElementById("modal-cuerpo");
-    let modalTotal = document.getElementById("modal-total");
-    modalCuerpo.removeChild(modalCuerpo.firstChild);
-    modalTotal.removeChild(modalTotal.firstChild);
-    const listado = JSON.parse(localStorage.getItem("carrito"));
-    let ul = document.createElement("ul");
-    let total = 0;
-    listado.forEach( elem => { 
-        let li = document.createElement("li");
-        total = total + parseInt(elem.precio);
-        li.innerHTML = `<p class="nomElemCarr">${elem.nombre}</p><p class="precioElemCarr">$ ${elem.precio}</p>`;
-        li.className = "articuloCarro";
-        ul.appendChild(li);
-    })
-
-    let suma = document.createElement("h4");
-    suma.className = "totalCarro";
-    suma.innerHTML = `El total del pedido es $<span class="verde margenIZ">${total}</span>`;
-    suma.classList.add("p-3");
-
-    modalTotal.appendChild(suma);
-    modalCuerpo.appendChild(ul);
-
-    let artiCarrito = document.getElementsByClassName("articuloCarro");
-    for (art of artiCarrito){
-        art.addEventListener("click", quitarCarrito)
-    }
-
-}
-
-verCarro.addEventListener("click", ()=>{
-    cargarCarrito();   
-})
 
