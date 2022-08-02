@@ -106,20 +106,26 @@ let produ = document.getElementById("checkAgregado");
 let addProducto = () => {
     let prod = new producto;
     prod.categoria = seleccionCategoria.value;
-    prod.nombre = product.value.toUpperCase();
-    if (isNaN(precio.value)){
-        alert("El precio debe ser un valor numérico")
-    }else{
-        prod.precio = precio.value;
-        listaProductos.push(prod);
-        produ.classList.remove("d-none");
+    
+    if ( product.value != "" )
+    { 
+        if (isNaN(precio.value)){
+            alert("El precio debe ser un valor numérico")
+        }else{
+            prod.precio = precio.value;
+            listaProductos.push(prod);
+            produ.classList.remove("d-none");
+        }
+        prod.nombre = product.value.toUpperCase(); 
     }
+    else
+        { alert("Debe escribir un nombre para el producto")}
+    
     product.value = "";
     precio.value = "";
 }
 
 
-//botonProd.addEventListener("click", );
 botonProd.onclick = addProducto;
 
 product.addEventListener("input", ()=>{
@@ -177,7 +183,7 @@ function categoriaIDporNombre (nombreCategoria){
 /*Recido Id Categoria, retorno lista productos*/
 function productosPorCategoria (nroCategoria)  {    
     let prods = listaProductos.filter(prod => prod.categoria == nroCategoria);
-        if (prods.length > 0){
+    if (prods.length > 0){
             return prods
         } else {
             return ("No se encontraron Productos")
