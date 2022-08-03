@@ -56,17 +56,22 @@ const agregoCategoria = (e) => {
     inputCategoria.value = "";
     let nom = document.getElementById("inputNombre");
     nom.disabled = true;
+
+    Toastify({
+        text: "Categoría agregada",
+        duration: 3000
+        }).showToast();
 }
 
 inputCategoria.addEventListener("keyup", (e)=>{
     e.preventDefault;    
     if (e.code == "Enter"){
-        inputCategoria.value == "" ? alert("Debe escribir un nombre de categoria.") : agregoCategoria();
+        inputCategoria.value == "" ? Swal.fire( {title: "Debe escribir un nombre de categoria.",  imageUrl: '../images/alertImage.jpg', imageAlt: 'ImagenAlerta'}) : agregoCategoria();
     }
 })
 
 boton.addEventListener("click", () => {
-    inputCategoria.value == "" ? alert("Debe escribir un nombre de categoria.") : agregoCategoria();
+    inputCategoria.value == "" ? Swal.fire( {title: "Debe escribir un nombre de categoria.", imageUrl: '../images/alertImage.jpg', imageAlt: 'ImagenAlerta'}) : agregoCategoria();
 });
 
 
@@ -101,7 +106,6 @@ botonListo.addEventListener("click", ()=>{
 let product = document.getElementById("inputProducto");
 let precio = document.getElementById("precioProducto");
 let botonProd = document.getElementById("botonProducto");
-let produ = document.getElementById("checkAgregado");
 
 let addProducto = () => {
     let prod = new producto;
@@ -109,17 +113,23 @@ let addProducto = () => {
     
     if ( product.value != "" )
     { 
-        if (isNaN(precio.value)){
-            alert("El precio debe ser un valor numérico")
+        if (isNaN(precio.value) || precio.value == ""){
+            Swal.fire( {title: "El precio debe ser un valor numérico", imageUrl: '../images/alertImage.jpg', imageAlt: 'ImagenAlerta'});
         }else{
             prod.precio = precio.value;
             listaProductos.push(prod);
-            produ.classList.remove("d-none");
+            Toastify({
+                text: "Producto agregado con éxito",
+                duration: 2000,
+                style: {
+                    background: "linear-gradient(to right, #00b09b, #96c93d)",
+                  }
+                }).showToast();
         }
         prod.nombre = product.value.toUpperCase(); 
     }
     else
-        { alert("Debe escribir un nombre para el producto")}
+        { Swal.fire( {title: "Debe escribir un nombre para el producto",  imageUrl: '../images/alertImage.jpg', imageAlt: 'ImagenAlerta'})}
     
     product.value = "";
     precio.value = "";
@@ -127,10 +137,6 @@ let addProducto = () => {
 
 
 botonProd.onclick = addProducto;
-
-product.addEventListener("input", ()=>{
-    produ.classList.add("d-none");
-})
 
 product.addEventListener("keyup", (e)=>{
     e.preventDefault;
@@ -221,12 +227,15 @@ function cargoProductosACategoriasHTML(){
         let nodo = document.getElementById(element.nombre);
         let nro = categoriaIDporNombre(element.nombre);
         let prodsAcargar = productosPorCategoria(nro);
-        prodsAcargar.forEach(elem => {
+        prodsAcargar.forEach( elem => {
+
+            let {nombre, precio} = elem;
+
             let li = document.createElement("li");
             li.addEventListener("click", agregoCarrito);
             li.className = ("articuloMenu carrito");
             li.innerHTML = `
-            <p class="nomElemCarr">${elem.nombre}</p><p class="precioElemCarr">$ ${elem.precio}</p>
+            <p class="nomElemCarr">${nombre}</p><p class="precioElemCarr">$ ${precio}</p>
             `;
             nodo.appendChild(li);
         })

@@ -50,6 +50,12 @@ ul{
     box-shadow:-20px -15px 50px rgb(53, 50, 50);
 }
 
+
+/*Quito el margen del ALERT*/
+.swal2-image {
+    margin: 0px !important;
+}
+
 /* MENU */
 .articuloMenu {
     /*Para usar con componentes li */
