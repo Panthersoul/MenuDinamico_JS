@@ -169,6 +169,16 @@ mostrar.addEventListener("click", () => {
     limpiarCarro();
     cargoCategoriasHTML();
     cargoProductosACategoriasHTML();
+
+    Toastify({
+        text: "Toque un producto para agregarlo al carrito.",
+        color: "#000000",
+        duration: 3000,
+        style: {
+            background: "linear-gradient(to right, #020f70, #ad2003)",
+          }
+        }).showToast();
+
     
 })
 
