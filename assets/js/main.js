@@ -161,27 +161,48 @@ const limpiarCarro = () => {
     localStorage.getItem("carrito") == null || localStorage.removeItem("carrito");
 }
 
+function agregarImagenFondo() {
+    let clase = document.createAttribute("style") ;
+    let main = document.querySelector("main");
+
+    fetch('https://foodish-api.herokuapp.com/api/')
+    .then(response => response.json())
+    .then(result => {
+        clase.value = (`background-image: url("${result.image}");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover; 
+        height: 100vh;
+        `);
+        main.setAttributeNode(clase);
+    })
+}
+
+
 mostrar.addEventListener("click", () => {
     menu.style.opacity = 1;
     divAgregoProd.style.display = "none";
-    let main = document.querySelector("main");
-    main.classList.add("bg-foto")
+    
+    agregarImagenFondo();
     limpiarCarro();
     cargoCategoriasHTML();
     cargoProductosACategoriasHTML();
+    setTimeout(()=>{
+        Toastify({
+            text: "Toque un producto para agregarlo al carrito.",
+            color: "#000000",
+            duration: 3000,
+            position: "top-center",
+            style: {
+                background: "linear-gradient(to right, #020f70, #ad2003)",
+              }
+            }).showToast();
+    }, 5000)
 
-    Toastify({
-        text: "Toque un producto para agregarlo al carrito.",
-        color: "#000000",
-        duration: 3000,
-        style: {
-            background: "linear-gradient(to right, #020f70, #ad2003)",
-          }
-        }).showToast();
+    
 
     
 })
-
 
 
 
