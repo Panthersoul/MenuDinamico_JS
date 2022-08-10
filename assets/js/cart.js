@@ -132,7 +132,7 @@ const enviarComanda = () => {
         cerrarModal.click();
     })
     .catch((error) => {
-        Swal.fire( {title: error, imageUrl: '../images/error.jpg', imageAlt: 'ImagenAlerta'})
+        Swal.fire( {title: error, imageUrl: '../images/error.jpg', imageAlt: 'ImagenError'})
     })
 }
 
