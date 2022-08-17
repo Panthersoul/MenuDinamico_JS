@@ -139,5 +139,3 @@ const enviarComanda = () => {
 
 
 btnPedido.onclick = enviarComanda;
-
-
