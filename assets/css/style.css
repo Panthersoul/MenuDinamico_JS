@@ -4,9 +4,12 @@
 
 p {margin: 0px !important;}
 
-.bodyMAIN{
+.botonPrincipal{
     background-color: black;
     color: white;
+}
+.botonPrincipal:hover{
+    box-shadow: 10px 15px 30px rgb(53, 50, 50);
 }
 .bodyMAIN h1{
     color: white;
@@ -17,6 +20,7 @@ p {margin: 0px !important;}
 }
 .bodyMAIN a{
     text-decoration: none !important;
+    height: 100vh;
 }
 
 .flexCentrado{
