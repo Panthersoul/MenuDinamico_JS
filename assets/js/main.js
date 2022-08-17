@@ -164,7 +164,9 @@ const limpiarCarro = () => {
 function agregarImagenFondo() {
     let clase = document.createAttribute("style") ;
     let main = document.querySelector("main");
-
+    
+    // Carga Dinámica del background por api
+    /* 
     fetch('https://foodish-api.herokuapp.com/api/')
     .then(response => response.json())
     .then(result => {
@@ -175,7 +177,15 @@ function agregarImagenFondo() {
         height: 100vh;
         `);
         main.setAttributeNode(clase);
-    })
+    }) */
+    
+    clase.value = (`background-image: url("../images/pexels-anna-guerrero-1765005.webp");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover; 
+    height: 100vh;
+    `);
+    main.setAttributeNode(clase);
 }
 
 

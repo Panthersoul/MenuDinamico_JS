@@ -67,7 +67,8 @@ ul{
 .articuloMenu:hover{
     cursor: pointer;
     border-bottom: 1px solid green;
-    border-radius: 15px;
+    border-bottom-right-radius: 20px;
+    padding-right: 20px !important;
     padding: 3px;
 }
 

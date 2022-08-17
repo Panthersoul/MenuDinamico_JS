@@ -124,12 +124,13 @@ const enviarComanda = () => {
     })
     .then((response) => response.json())
     .then((data) => {
-        console.log(data);
+        
         btnCarrito.classList.add("d-none");
         Swal.fire( {title: "Hemos enviado la comanda... <br> la puedes ver en consola.", imageUrl: '../images/pizza.jpg', imageAlt: 'ImagenAlerta'})
         localStorage.removeItem("carrito");
         limpiarCarritoHTML();
         cerrarModal.click();
+        console.log(data);
     })
     .catch((error) => {
         Swal.fire( {title: error, imageUrl: '../images/error.jpg', imageAlt: 'ImagenError'})
