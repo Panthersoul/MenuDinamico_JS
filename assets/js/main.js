@@ -26,8 +26,6 @@ class categoria {
 /*Genero ambas listas*/ 
 let listaCategoria = [];
 let listaProductos = [];
-
-
 // AQUI AGREGO CATEGORIAS
 let menu = document.getElementById("menu");
 let boton = document.getElementById("submitCategoria");
@@ -38,6 +36,44 @@ let divAgregoCat = document.getElementById("agregoCategoria");
 let divAgregoProd = document.getElementById("agregoProductos");
 
 
+
+(function () {
+
+    if (localStorage.getItem("categorias") != null){
+        Swal.fire({
+            title: 'Desea utilizar el menú ya cargado?',
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: 'Yes',
+            denyButtonText: 'No',
+            customClass: {
+              actions: 'my-actions',
+              cancelButton: 'order-1 right-gap',
+              confirmButton: 'order-2',
+              denyButton: 'order-3',
+            }
+          }).then((result) => {
+            if (result.isConfirmed) { 
+                    divAgregoCat.style.display = "none";
+                    divAgregoProd.style.display = "none";
+                    menu.style.opacity = 1;
+                    cargoMenuLocal();
+                    //cargoProductosACategoriasHTML()
+              
+            } else if (result.isDenied) {
+                localStorage.removeItem("productosMenu");
+                localStorage.removeItem("categorias");
+                localStorage.removeItem("nombreResto");
+                localStorage.removeItem("carrito");
+            }
+          })
+    }
+
+})();
+
+
+
+
 /*Escondo Menu*/
 menu.style.opacity = 0;
 divAgregoProd.style.display = "none";
@@ -45,7 +81,19 @@ divAgregoProd.style.display = "none";
 let listaNombreCat = [];
 const agregoCategoria = (e) => {
     let valorCategoria = inputCategoria.value.toUpperCase() 
-    listaNombreCat.push(valorCategoria);
+    
+
+    /*Cargo las categorías al localstorage*/
+    if (localStorage.getItem("categorias") == null){
+        listaNombreCat.push(valorCategoria);
+        localStorage.setItem("categorias", JSON.stringify(listaNombreCat));
+    }else{
+        const listado = JSON.parse(localStorage.getItem("categorias"));
+        listado.push(valorCategoria);
+        localStorage.setItem("categorias", JSON.stringify(listado));
+    }
+    
+
     let li = document.createElement("li");
     li.innerHTML = `
         ${valorCategoria} 
@@ -80,19 +128,23 @@ botonListo.addEventListener("click", ()=>{
     divAgregoCat.style.display = "none";
     divAgregoProd.style.display = "flex";
     let nombreRe = document.getElementById("inputNombre").value;
-    let nombreResto = document.getElementById("nombreResto");
+    let nombreResto = document.getElementById("nombreResto");    
     nombreResto.innerText = nombreRe;
+    localStorage.setItem("nombreResto", nombreRe)
 
+    let listaCategorias = JSON.parse(localStorage.getItem("categorias"))
+    let categoriasID = [];
     /*Aquí cargo la lista de categorias con un ID*/
-    for (let i = 0; i < listaNombreCat.length; i++){
+    for (let i = 0; i < listaCategorias.length; i++){
         let cat = new categoria;
-        cat.nombre = listaNombreCat[i];
+        cat.nombre = listaCategorias[i];
         cat.numero = i + 1 ;
-        listaCategoria.push(cat);
+        categoriasID.push(cat);
     }
-    //cargo el select 
     
-    for (cat of listaCategoria){
+    localStorage.setItem("categorias", JSON.stringify(categoriasID));
+    //cargo el select 
+    for (cat of categoriasID){
         let opion = document.createElement("option");
         opion.value = cat.numero
         opion.innerHTML = cat.nombre;
@@ -107,17 +159,28 @@ let product = document.getElementById("inputProducto");
 let precio = document.getElementById("precioProducto");
 let botonProd = document.getElementById("botonProducto");
 
+
 let addProducto = () => {
     let prod = new producto;
     prod.categoria = seleccionCategoria.value;
-    
     if ( product.value != "" )
     { 
         if (isNaN(precio.value) || precio.value == ""){
             Swal.fire( {title: "El precio debe ser un valor numérico", imageUrl: '../images/alertImage.jpg', imageAlt: 'ImagenAlerta'});
         }else{
+            prod.nombre = product.value.toUpperCase(); 
             prod.precio = precio.value;
-            listaProductos.push(prod);
+
+                /*Cargo los productos al localstorage*/
+                 if (localStorage.getItem("productosMenu") == null){
+                    listaProductos.push(prod);
+                    localStorage.setItem("productosMenu", JSON.stringify(listaProductos));
+                }else{
+                    const listado = JSON.parse(localStorage.getItem("productosMenu"));
+                    listado.push(prod);
+                    localStorage.setItem("productosMenu", JSON.stringify(listado));
+                }
+
             Toastify({
                 text: "Producto agregado con éxito",
                 duration: 2000,
@@ -126,7 +189,6 @@ let addProducto = () => {
                   }
                 }).showToast();
         }
-        prod.nombre = product.value.toUpperCase(); 
     }
     else
         { Swal.fire( {title: "Debe escribir un nombre para el producto",  imageUrl: '../images/alertImage.jpg', imageAlt: 'ImagenAlerta'})}
@@ -135,9 +197,7 @@ let addProducto = () => {
     precio.value = "";
 }
 
-
 botonProd.onclick = addProducto;
-
 product.addEventListener("keyup", (e)=>{
     e.preventDefault;
     if (e.code == "Enter"){
@@ -163,10 +223,8 @@ const limpiarCarro = () => {
 
 function agregarImagenFondo() {
     let clase = document.createAttribute("style") ;
-    let main = document.querySelector("main");
+    let main = document.querySelector("main");   
     
-    // Carga Dinámica del background por api
-    /* 
     fetch('https://foodish-api.herokuapp.com/api/')
     .then(response => response.json())
     .then(result => {
@@ -177,15 +235,17 @@ function agregarImagenFondo() {
         height: 100vh;
         `);
         main.setAttributeNode(clase);
-    }) */
+    })
     
+    
+    /*
     clase.value = (`background-image: url("../images/pexels-anna-guerrero-1765005.webp");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover; 
     height: 100vh;
     `);
-    main.setAttributeNode(clase);
+    main.setAttributeNode(clase);*/
 }
 
 
@@ -209,9 +269,6 @@ mostrar.addEventListener("click", () => {
             }).showToast();
     }, 5000)
 
-    
-
-    
 })
 
 
@@ -220,6 +277,9 @@ mostrar.addEventListener("click", () => {
 /* FUNCIONES PARA FILTRAR Y BUSCAR */
 //Recibo Nombre devuelvo id
 function categoriaIDporNombre (nombreCategoria){
+    listadoCategorias = JSON.parse(localStorage.getItem("categorias"));
+
+
     let existeCat = listaCategoria.some(catego => catego.nombre == nombreCategoria.toUpperCase());
     if (existeCat){
         let cat = listaCategoria.find(ca => ca.nombre == nombreCategoria.toUpperCase());
@@ -229,6 +289,8 @@ function categoriaIDporNombre (nombreCategoria){
 
 /*Recido Id Categoria, retorno lista productos*/
 function productosPorCategoria (nroCategoria)  {    
+
+    listaProductos = JSON.parse(localStorage.getItem("productosMenu"));
     let prods = listaProductos.filter(prod => prod.categoria == nroCategoria);
     if (prods.length > 0){
             return prods
@@ -245,9 +307,9 @@ function productosPorCategoria (nroCategoria)  {
 function cargoCategoriasHTML(){
     let menu1 = document.getElementById("contenidoMenu");
     let divListaProd = document.createElement("div");
+    const categoriaStore = JSON.parse(localStorage.getItem("categorias"));
     divListaProd.addClass = "flexcentrado";
-
-    listaCategoria.forEach(element => {
+    categoriaStore.forEach(element => {
         divListaProd.innerHTML += `
         <div class="p-4">
             <h3><strong>${element.nombre}</strong></h3>
@@ -262,16 +324,18 @@ function cargoCategoriasHTML(){
 }
 
 
+
 /* A cada categoria YA EXISTENTE EN EL HTML le agrego sus productos */
 function cargoProductosACategoriasHTML(){
-    listaCategoria.forEach(element => {
+
+    listadoCategorias = JSON.parse(localStorage.getItem("categorias"));
+    listadoCategorias.forEach(element => {
         let nodo = document.getElementById(element.nombre);
-        let nro = categoriaIDporNombre(element.nombre);
-        let prodsAcargar = productosPorCategoria(nro);
-        prodsAcargar.forEach( elem => {
-
+        
+        let prodsAcargar = productosPorCategoria(element.numero);
+        
+        prodsAcargar.forEach(elem => {
             let {nombre, precio} = elem;
-
             let li = document.createElement("li");
             li.addEventListener("click", agregoCarrito);
             li.className = ("articuloMenu carrito");
@@ -283,5 +347,27 @@ function cargoProductosACategoriasHTML(){
 
     });
 
+}
+
+
+function cargoMenuLocal () {
+    //let listCat = JSON.parse(localStorage.getItem("categorias"));
+    limpiarCarro();
+    agregarImagenFondo();
+    cargoCategoriasHTML();
+    cargoProductosACategoriasHTML();
+    let nombreResto = document.getElementById("nombreResto");    
+    nombreResto.innerText = localStorage.getItem("nombreResto");
+    setTimeout(()=>{
+        Toastify({
+            text: "Toque un producto para agregarlo al carrito.",
+            color: "#000000",
+            duration: 3000,
+            position: "top-center",
+            style: {
+                background: "linear-gradient(to right, #020f70, #ad2003)",
+              }
+            }).showToast();
+    }, 5000)
 }
 
